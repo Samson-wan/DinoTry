@@ -5,18 +5,17 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+import Obj.Dinosaur;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener { //https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html
     private static Thread thread;
-    private static final float GRAVITY = 0.1f;
-    private static final float GROUNDY = 300; //pixel
-    private float x = 0;
-    private float y = 0;
-    private float speedHorizontal = 0;
-    private float speedVertical = 0;
+    public static final float GRAVITY = 0.1f; //add suffix f to make it identify as a float
+    public static final float GROUNDY = 300;
+    private Dinosaur dino;
 
     public GamePanel(){
         thread = new Thread(this);
+        dino = new Dinosaur();
     }
 
     public static void activate(){
@@ -26,14 +25,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
     public void run() {
         while(true){
             try{
-                if(y >= GROUNDY - 100){
-                    speedVertical = 0;
-                    y = GROUNDY - 100;
-                }
-                else{
-                    speedVertical += GRAVITY; // speed increase as time increases
-                    y += speedVertical;
-                }
+                dino.changePosition();
                 repaint(); //call the paint method again after the x and y coordinate has been changed
                 Thread.sleep(20);
             }
@@ -46,9 +38,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
     public void paint(Graphics g){ //https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html
         g.setColor(Color.white);
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.black);
+        g.setColor(Color.red);
         g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
-        g.drawRect((int)x, (int)y, 100, 100);
+        dino.drawObj(g);
     }
 
     @Override
@@ -58,8 +50,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
 
     @Override
     public void keyPressed(KeyEvent e) {
-        speedVertical -= 4;
-        y += speedVertical;
+        dino.dinoJump();
     }
 
     @Override
