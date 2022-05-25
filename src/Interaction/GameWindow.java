@@ -11,7 +11,7 @@ public class GameWindow extends JFrame{ //Extends JFrame because when the placeP
 
     public GameWindow(){
         super("Chrome Dino Run"); //Create new Frame
-        setSize(400, 400);
+        setSize(600, 175);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Make Frame become visible
         setVisible(true);
         panel = new GamePanel();
@@ -27,18 +27,4 @@ public class GameWindow extends JFrame{ //Extends JFrame because when the placeP
         GameWindow frame = new GameWindow(); //Create new GamePanel to call itself in the Main class
         frame.start();
     }
-
-
-
-//    public void paint(Graphics g){  //Draw elements on the GamePanel with paint class
-//        super.paint(g);
-//        BufferedImage cactus1 = null; //set it to default
-//        try{
-//            cactus1 = ImageIO.read(new File("pictures/cactus1.png"));//Grab the image in the pictures folder of my project
-//            g.drawImage(cactus1, 100, 100, null); //draw Cactus1 with drawImage method
-//        }
-//        catch(IOException e){
-//            e.printStackTrace(); //catch exception
-//        }
-//    }
 }

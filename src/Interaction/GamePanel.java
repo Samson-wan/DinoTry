@@ -6,16 +6,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 import Obj.Dinosaur;
+import Obj.Ground;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener { //https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html
     private static Thread thread;
     public static final float GRAVITY = 0.1f; //add suffix f to make it identify as a float
-    public static final float GROUNDY = 300;
+    public static final float GROUNDY = 100;
     private Dinosaur dino;
+    private Ground ground;
 
     public GamePanel(){
         thread = new Thread(this);
         dino = new Dinosaur();
+        ground = new Ground();
     }
 
     public static void activate(){
@@ -40,7 +43,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.red);
         g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
-        dino.drawObj(g);
+        ground.drawGround(g); //draw ground
+        dino.drawObj(g); //draw dino
     }
 
     @Override
