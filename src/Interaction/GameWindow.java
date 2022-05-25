@@ -11,10 +11,10 @@ public class GameWindow extends JFrame{ //Extends JFrame because when the placeP
 
     public GameWindow(){
         super("Chrome Dino Run"); //Create new Frame
-        setSize(600, 175);
+        setSize(1000, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Make Frame become visible
         setVisible(true);
-        panel = new GamePanel();
+        panel = new GamePanel(this);
         add(panel);
         addKeyListener(panel);
     }
@@ -28,3 +28,5 @@ public class GameWindow extends JFrame{ //Extends JFrame because when the placeP
         frame.start();
     }
 }
+
+

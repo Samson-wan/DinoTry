@@ -5,20 +5,28 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+
+import Obj.Cactus;
 import Obj.Dinosaur;
 import Obj.Ground;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener { //https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html
     private static Thread thread;
     public static final float GRAVITY = 0.1f; //add suffix f to make it identify as a float
-    public static final float GROUNDY = 100;
+    public static final float GROUNDY = 500;
     private Dinosaur dino;
     private Ground ground;
+    private Cactus cactusGroup1;
+    private Cactus cactusGroup2;
+    private JFrame frame;
 
-    public GamePanel(){
+    public GamePanel(JFrame frame){
         thread = new Thread(this);
         dino = new Dinosaur();
-        ground = new Ground();
+        this.frame = frame;
+        ground = new Ground(frame);
+        cactusGroup1 = new Cactus(frame);
+        cactusGroup2 = new Cactus(frame);
     }
 
     public static void activate(){
@@ -45,7 +53,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
         g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
         ground.drawGround(g); //draw ground
         dino.drawObj(g); //draw dino
+        cactusGroup1.drawCactus(g); //draw cactus;
+        cactusGroup2.drawCactus(g);
     }
+
 
     @Override
     public void keyTyped(KeyEvent e) {

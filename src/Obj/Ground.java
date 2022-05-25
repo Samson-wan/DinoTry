@@ -1,37 +1,40 @@
 package Obj;
 
+import Interaction.GameWindow;
 import UtilityAndResources.Resource;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 import static Interaction.GamePanel.GROUNDY;
 
 public class Ground {
-    private List<groundImages> imagesList;
+    private ArrayList<BufferedImage> imageList;
     private BufferedImage imageGround1;
     private BufferedImage imageGround2;
     private BufferedImage imageGround3;
+    private JFrame frame;
 
-    public Ground(){
+    public Ground(JFrame frame){
         imageGround1 = Resource.getImage("pictures/land1.png");
-        imageGround1 = Resource.getImage("pictures/land2.png");
-        imageGround1 = Resource.getImage("pictures/land3.png");
-        imagesList = new List<groundImages>();
-        for(int i = 0; i < 5; i++){
-            groundImages images = new groundImages();
-            images = i * imageGround1.getWidth();
+        imageGround2 = Resource.getImage("pictures/land2.png");
+        imageGround3 = Resource.getImage("pictures/land3.png");
+        imageList = new ArrayList<BufferedImage>();
+        this.frame = frame;
+        imageList.add(imageGround1);
+        imageList.add(imageGround2);
+        imageList.add(imageGround3);
+    }
 
+    public void drawGround(Graphics g) {
+        int index = 0;
+        while(50 * index < frame.getWidth()) {
+            for (int i = 0; i < imageList.size(); i++) {
+                g.drawImage(imageList.get(i), 50 * index, (int) GROUNDY - 15, null);
+                index++;
+            }
         }
-    }
-    public void drawGround(Graphics g){
-        g.drawImage(imageGround1, 50, (int)GROUNDY - 15, null);
-    }
-
-    private class groundImages{
-        int positionHorizontal;
-        BufferedImage image;
     }
 }
