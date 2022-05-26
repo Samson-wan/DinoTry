@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
 
+import Obj.Cactus;
 import Obj.Cloud;
 import Obj.Dinosaur;
 import Obj.Ground;
@@ -17,6 +18,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
     private Dinosaur dino;
     private Ground ground;
     private Cloud cloud;
+    private Cactus cactus;
 
     public GamePanel(){
         thread = new Thread(this);
@@ -24,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
         dino.setX(50);
         ground = new Ground(this);
         cloud = new Cloud();
+        cactus = new Cactus();
     }
 
     public static void activate(){
@@ -51,8 +54,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
         g.setColor(Color.red);
         g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
         ground.drawGround(g); //draw ground
+        cloud.drawCloud(g); //draw cloud
+        cactus.drawCactus(g);
         dino.drawObj(g); //draw dino
-        cloud.drawCloud(g);
     }
 
     @Override
