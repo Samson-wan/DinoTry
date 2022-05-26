@@ -12,6 +12,7 @@ public class GameWindow extends JFrame{ //Extends JFrame because when the placeP
     public GameWindow(){
         super("Chrome Dino Run"); //Create new Frame
         setSize(600, 175);
+        setLocation(500, 300); // set GameWindow location on the computer screen
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //Make Frame become visible
         setVisible(true);
         panel = new GamePanel();

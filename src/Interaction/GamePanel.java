@@ -5,20 +5,25 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.IOException;
+
+import Obj.Cloud;
 import Obj.Dinosaur;
 import Obj.Ground;
 
 public class GamePanel extends JPanel implements Runnable, KeyListener { //https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html
     private static Thread thread;
     public static final float GRAVITY = 0.1f; //add suffix f to make it identify as a float
-    public static final float GROUNDY = 100;
+    public static final float GROUNDY = 110;
     private Dinosaur dino;
     private Ground ground;
+    private Cloud cloud;
 
     public GamePanel(){
         thread = new Thread(this);
         dino = new Dinosaur();
-        ground = new Ground();
+        dino.setX(50);
+        ground = new Ground(this);
+        cloud = new Cloud();
     }
 
     public static void activate(){
@@ -28,6 +33,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
     public void run() {
         while(true){
             try{
+                ground.landMoving();
+                cloud.cloudMoving();
                 dino.changePosition();
                 repaint(); //call the paint method again after the x and y coordinate has been changed
                 Thread.sleep(20);
@@ -39,12 +46,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
     }
 
     public void paint(Graphics g){ //https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html
-        g.setColor(Color.white);
+        g.setColor(Color.decode("#f7f7f7"));
         g.fillRect(0, 0, getWidth(), getHeight());
         g.setColor(Color.red);
         g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
         ground.drawGround(g); //draw ground
         dino.drawObj(g); //draw dino
+        cloud.drawCloud(g);
     }
 
     @Override
