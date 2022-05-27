@@ -9,5 +9,5 @@ public abstract class Obstacle {
     public abstract boolean isOut();
     public abstract boolean isGameOver();
     public abstract boolean isScoreGot();
-    public abstract void setScoreGot(boolean score);
+    public abstract void setScoreGot(boolean b);
 }

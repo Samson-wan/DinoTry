@@ -25,6 +25,11 @@ public class Manage {
         enemies.add(getRandom());
     }
 
+    public void reset(){
+        enemies.clear();
+        enemies.add(getRandom());
+    }
+
     public void update(){
         for(Obstacle enemy : enemies){
             enemy.moveCactus();

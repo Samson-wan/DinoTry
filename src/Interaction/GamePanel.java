@@ -24,11 +24,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
     private int gameStatus;
     private BufferedImage iamgeGameOver;
     private int gameScore;
+    private int highestScore;
 
     public GamePanel(){
         thread = new Thread(this);
         dino = new Dinosaur();
-        dino.setX(50);
+        dino.setX(50); //Initial x position;
+        dino.setY(60); //Initial y position;
         ground = new Ground(this);
         cloud = new Cloud();
         manage = new Manage(dino, this);
@@ -70,11 +72,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
         this.gameScore += gameScore;
     }
 
+    public void clearGameScore(){
+        gameScore = 0;
+    }
+
     public void paint(Graphics g){ //https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html
         g.setColor(Color.decode("#f7f7f7"));
         g.fillRect(0, 0, getWidth(), getHeight());
-        g.setColor(Color.red);
-        g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
+//        g.setColor(Color.red);
+//        g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
 
         switch (gameStatus){
             case GAME_FIRST:
@@ -85,7 +91,8 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
                 cloud.drawCloud(g); //draw cloud
                 manage.drawEnemies(g);
                 dino.drawObj(g); //draw dino
-                g.drawString("High Score: " + String.valueOf(gameScore), 300, 20);
+                g.drawString("Game Score: " + String.valueOf(gameScore), 300, 20);
+                g.drawString("High Score: " + String.valueOf(gameScore), 500, 20);
                 break;
             case GAME_OVER:
                 ground.drawGround(g); //draw ground
@@ -99,6 +106,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
 //        cloud.drawCloud(g); //draw cloud
 //        manage.drawEnemies(g);
 //        dino.drawObj(g); //draw dino
+    }
+
+    public void resetGame(){
+        dino.setSurvive(true);
+        dino.setX(50);
+        dino.setY(60);
+        manage.reset();
+        clearGameScore();
     }
 
     @Override
@@ -122,6 +137,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
             }
             else if(gameStatus == 2){
                 gameStatus = 1;
+                resetGame();
             }
         }
     }

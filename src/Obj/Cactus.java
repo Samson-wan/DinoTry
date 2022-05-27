@@ -64,8 +64,7 @@ public class Cactus extends Obstacle{
         return isScoreGot;
     }
 
-    @Override
-    public void setScoreGot(boolean scoreGot) {
+    public void setScoreGot(boolean scoreGot){
         isScoreGot = scoreGot;
     }
 }
