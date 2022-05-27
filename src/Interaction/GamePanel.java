@@ -29,7 +29,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
     private int gameScore;
     private int highestScore;
     private BufferedImage dinoDied;
-//    private Rectangle rect;
 
     public GamePanel(){
         thread = new Thread(this);
@@ -42,11 +41,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
         imageGameOver = Resource.getImage("pictures/gameover_text.png");
         refreshedButton = Resource.getImage("pictures/replay_button.png");
         dinoDied = Resource.getImage("pictures/main-character4.png");
-//        rect = new Rectangle();
-//        rect.x = 280;
-//        rect.y = 70;
-//        rect.width = refreshedButton.getWidth();
-//        rect.height = refreshedButton.getWidth();
     }
 
     public static void activate(){
@@ -91,8 +85,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
     public void paint(Graphics g){ //https://docs.oracle.com/javase/7/docs/api/java/awt/Graphics.html
         g.setColor(Color.decode("#f7f7f7"));
         g.fillRect(0, 0, getWidth(), getHeight());
-//        g.setColor(Color.red);
-//        g.drawLine(0, (int)GROUNDY, getWidth(), (int)GROUNDY);
 
         switch (gameStatus){
             case GAME_FIRST:
@@ -115,10 +107,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
                 g.drawImage(refreshedButton, 280, 70, null);
                 break;
         }
-//        ground.drawGround(g); //draw ground
-//        cloud.drawCloud(g); //draw cloud
-//        manage.drawEnemies(g);
-//        dino.drawObj(g); //draw dino
     }
 
     public void resetGame(){
@@ -186,7 +174,18 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        if(e.getButton() == MouseEvent.BUTTON1){
+            if(gameStatus == 0){
+                gameStatus = 1;
+            }
+            else if(gameStatus == 1){
+                dino.dinoJump();
+            }
+            else if(gameStatus == 2){
+                gameStatus = 1;
+                resetGame();
+            }
+        }
     }
 
     @Override
