@@ -170,7 +170,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(e.MOUSE_CLICKED == MouseEvent.BUTTON1){
+        if(e.getButton() == MouseEvent.BUTTON1){
             if(gameStatus == 0){
                 gameStatus = 1;
             }
