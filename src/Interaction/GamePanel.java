@@ -4,13 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import Obj.*;
 import UtilityAndResources.Resource;
 
-public class GamePanel extends JPanel implements Runnable, KeyListener { //https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html
+public class GamePanel extends JPanel implements Runnable, KeyListener, MouseListener { //https://docs.oracle.com/javase/7/docs/api/java/lang/Runnable.html
     private static Thread thread;
     public static final int GAME_FIRST = 0;
     public static final int GAME_PLAY = 1;
@@ -22,9 +24,12 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
     private Cloud cloud;
     private Manage manage;
     private int gameStatus;
-    private BufferedImage iamgeGameOver;
+    private BufferedImage imageGameOver;
+    private BufferedImage refreshedButton;
     private int gameScore;
     private int highestScore;
+    private BufferedImage dinoDied;
+//    private Rectangle rect;
 
     public GamePanel(){
         thread = new Thread(this);
@@ -34,7 +39,14 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
         ground = new Ground(this);
         cloud = new Cloud();
         manage = new Manage(dino, this);
-        iamgeGameOver = Resource.getImage("pictures/gameover_text.png");
+        imageGameOver = Resource.getImage("pictures/gameover_text.png");
+        refreshedButton = Resource.getImage("pictures/replay_button.png");
+        dinoDied = Resource.getImage("pictures/main-character4.png");
+//        rect = new Rectangle();
+//        rect.x = 280;
+//        rect.y = 70;
+//        rect.width = refreshedButton.getWidth();
+//        rect.height = refreshedButton.getWidth();
     }
 
     public static void activate(){
@@ -87,19 +99,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
                 dino.drawObj(g);
                 break;
             case GAME_PLAY:
-                ground.drawGround(g); //draw ground
                 cloud.drawCloud(g); //draw cloud
+                ground.drawGround(g); //draw ground
                 manage.drawEnemies(g);
                 dino.drawObj(g); //draw dino
                 g.drawString("Game Score: " + String.valueOf(gameScore), 300, 20);
                 g.drawString("High Score: " + String.valueOf(highestScore), 450, 20);
                 break;
             case GAME_OVER:
-                ground.drawGround(g); //draw ground
                 cloud.drawCloud(g); //draw cloud
+                ground.drawGround(g); //draw ground
                 manage.drawEnemies(g);
-                dino.drawObj(g); //draw dino
-                g.drawImage(iamgeGameOver, 100, 50, null);
+                g.drawImage(dinoDied, (int)dino.getX(), (int)dino.getY(), null); //draw dino
+                g.drawImage(imageGameOver, 200, 30, null);
+                g.drawImage(refreshedButton, 280, 70, null);
                 break;
         }
 //        ground.drawGround(g); //draw ground
@@ -119,12 +132,23 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
 
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println("KeyTyped");
+
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        if(e.getKeyCode() == KeyEvent.VK_SPACE){
+            if(gameStatus == 0){
+                gameStatus = 1;
+            }
+            else if(gameStatus == 1){
+                dino.dinoJump();
+            }
+            else if(gameStatus == 2){
+                gameStatus = 1;
+                resetGame();
+            }
+        }
     }
 
     @Override
@@ -141,5 +165,42 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
                 resetGame();
             }
         }
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if(e.MOUSE_CLICKED == MouseEvent.BUTTON1){
+            if(gameStatus == 0){
+                gameStatus = 1;
+            }
+            else if(gameStatus == 1){
+                dino.dinoJump();
+            }
+            else if(gameStatus == 2){
+                gameStatus = 1;
+                resetGame();
+            }
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 }

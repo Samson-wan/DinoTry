@@ -1,6 +1,6 @@
 package Interaction;
 import javax.imageio.ImageIO;
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -17,6 +17,7 @@ public class GameWindow extends JFrame{ //Extends JFrame because when the placeP
         panel = new GamePanel();
         add(panel);
         addKeyListener(panel);
+        addMouseListener(panel);
         setVisible(true);
     }
 
