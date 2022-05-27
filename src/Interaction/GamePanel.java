@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
                 manage.drawEnemies(g);
                 dino.drawObj(g); //draw dino
                 g.drawString("Game Score: " + String.valueOf(gameScore), 300, 20);
-                g.drawString("High Score: " + String.valueOf(gameScore), 500, 20);
+                g.drawString("High Score: " + String.valueOf(highestScore), 500, 20);
                 break;
             case GAME_OVER:
                 ground.drawGround(g); //draw ground
@@ -113,6 +113,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
         dino.setX(50);
         dino.setY(60);
         manage.reset();
+        highestScore = gameScore;
         clearGameScore();
     }
 
