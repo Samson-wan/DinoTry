@@ -16,11 +16,14 @@ public class Dinosaur {
     private float y = 0;
     private float speedVertical = 0;
     private Animation object;
+    private Rectangle rect;
+    private boolean survive = true;
 
     public Dinosaur(){
         object = new Animation(200);
         object.addFrame(Resource.getImage("pictures/main-character1.png"));
         object.addFrame(Resource.getImage("pictures/main-character2.png"));
+        rect = new Rectangle();
     }
 
     public void changePosition(){ //Belongs to dinoJump - change in dino's vertical position
@@ -33,6 +36,14 @@ public class Dinosaur {
             speedVertical += GRAVITY; // speed increase as time increases
             y += speedVertical;
         }
+        rect.x = (int)x;
+        rect.y = (int)y;
+        rect.width = object.getFrames().getWidth();
+        rect.height = object.getFrames().getHeight();
+    }
+
+    public Rectangle getRect(){
+        return rect;
     }
 
     public void dinoJump(){
@@ -42,7 +53,7 @@ public class Dinosaur {
 
     public void drawObj(Graphics g){
         g.setColor(Color.black);
-        g.drawRect((int)x, (int)y, object.getFrames().getWidth(), object.getFrames().getHeight());
+//        g.drawRect((int)x, (int)y, object.getFrames().getWidth(), object.getFrames().getHeight());
         g.drawImage(object.getFrames(), (int)x, (int)y, null);
     }
 
@@ -64,5 +75,13 @@ public class Dinosaur {
 
     public void setSpeedVertical(float speedVertical) {
         this.speedVertical = speedVertical;
+    }
+
+    public void setSurvive(boolean survive) {
+        this.survive = survive;
+    }
+
+    public boolean survive(){
+        return survive;
     }
 }
