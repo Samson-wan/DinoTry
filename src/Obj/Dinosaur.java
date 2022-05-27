@@ -6,6 +6,7 @@ import UtilityAndResources.Resource;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.nio.Buffer;
+import java.util.Timer;
 
 import static Interaction.GamePanel.GRAVITY;
 import static Interaction.GamePanel.GROUNDY;
@@ -29,7 +30,7 @@ public class Dinosaur {
     public void changePosition(){ //Belongs to dinoJump - change in dino's vertical position
         object.update();
         if(y >= GROUNDY - object.getFrames().getHeight()){
-            speedVertical = 0;
+            speedVertical =  0;
             y = GROUNDY - object.getFrames().getHeight();
         }
         else{
@@ -47,8 +48,10 @@ public class Dinosaur {
     }
 
     public void dinoJump(){
-        speedVertical -= 4;
-        y += speedVertical;
+        if(y > 50) {
+            speedVertical -= 20;
+            y += speedVertical;
+        }
     }
 
     public void drawObj(Graphics g){

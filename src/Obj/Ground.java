@@ -46,9 +46,9 @@ public class Ground {
         return imageReturn;
     }
 
-    public void landMoving(){
+    public void landMoving(/* ryan was here */){
         for(groundImage element : imagesList){
-            element.positionHorizontal--; //Move ground left to make Dino looks like running
+            element.positionHorizontal -= 8; //Move ground left to make Dino looks like running
         }
         groundImage first = imagesList.get(0);
         if(first.positionHorizontal + imageGround1.getWidth()< 0){ //Move first ground to the end to make it appear again.

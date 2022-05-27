@@ -24,7 +24,7 @@ public class Cactus extends Obstacle{
 
     //overRide
     public void moveCactus(){
-        positionHorizontal -= 2;
+        positionHorizontal -= 8;
         rect.x = (int)positionHorizontal;
         rect.y = (int)positionVertical;
         rect.width = cactusImage.getWidth();

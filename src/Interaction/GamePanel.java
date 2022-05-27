@@ -15,7 +15,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
     public static final int GAME_FIRST = 0;
     public static final int GAME_PLAY = 1;
     public static final int GAME_OVER = 2;
-    public static final float GRAVITY = 0.1f; //add suffix f to make it identify as a float
+    public static final float GRAVITY = 2f; //add suffix f to make it identify as a float
     public static final float GROUNDY = 110;
     private Dinosaur dino;
     private Ground ground;
@@ -92,7 +92,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener { //https
                 manage.drawEnemies(g);
                 dino.drawObj(g); //draw dino
                 g.drawString("Game Score: " + String.valueOf(gameScore), 300, 20);
-                g.drawString("High Score: " + String.valueOf(highestScore), 500, 20);
+                g.drawString("High Score: " + String.valueOf(highestScore), 450, 20);
                 break;
             case GAME_OVER:
                 ground.drawGround(g); //draw ground
