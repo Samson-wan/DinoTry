@@ -23,8 +23,8 @@ public class Cactus extends Obstacle{
     }
 
     //overRide
-    public void moveCactus(){
-        positionHorizontal -= 8;
+    public void moveCactus(int changeSpeed){
+        positionHorizontal -= changeSpeed;
         rect.x = (int)positionHorizontal;
         rect.y = (int)positionVertical;
         rect.width = cactusImage.getWidth();
@@ -52,7 +52,11 @@ public class Cactus extends Obstacle{
         this.positionVertical = positionVertical;
     }
 
-    public boolean isOut(){
+    public boolean isOut(int index){
+        return(positionHorizontal + cactusImage.getWidth() < index);
+    }
+
+    public boolean isOutScreen(){
         return(positionHorizontal + cactusImage.getWidth() < 0);
     }
 

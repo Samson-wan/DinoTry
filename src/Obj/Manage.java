@@ -14,6 +14,8 @@ public class Manage {
     private BufferedImage image2;
     private Dinosaur dino;
     private GamePanel panel;
+    private int changeSpeed;
+    private int index = 0;
 
     public Manage(Dinosaur dino, GamePanel panel){
         this.panel = panel;
@@ -23,6 +25,7 @@ public class Manage {
         image1 = Resource.getImage("pictures/cactus1.png");
         image2 = Resource.getImage("pictures/cactus2.png");
         enemies.add(getRandom());
+        changeSpeed = 8;
     }
 
     public void reset(){
@@ -32,7 +35,7 @@ public class Manage {
 
     public void update(){
         for(Obstacle enemy : enemies){
-            enemy.moveCactus();
+            enemy.moveCactus(changeSpeed);
             if(enemy.isGameOver() && !enemy.isScoreGot()){
                 panel.plusGameScore(20);
                 enemy.setScoreGot(true);
@@ -42,7 +45,7 @@ public class Manage {
             }
         }
         Obstacle first = enemies.get(0);
-        if(first.isOut()){
+        if(first.isOut(index) && first.isOutScreen()){
             enemies.remove(first);
             enemies.add(getRandom());
         }
@@ -65,5 +68,13 @@ public class Manage {
             cactus.setCactusImage(image2);
         }
         return cactus;
+    }
+
+    public void setChangeSpeed(int changeSpeed) {
+        this.changeSpeed = changeSpeed;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

@@ -63,10 +63,69 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
     public void change(){
         switch (gameStatus){
             case GAME_PLAY:
-                dino.changePosition();
-                ground.landMoving();
-                cloud.cloudMoving();
-                manage.update();
+                if(gameScore <= 100){
+                    dino.changePosition();
+                    ground.landMoving(8);
+                    manage.setChangeSpeed(8);
+                    manage.setIndex(0);
+                    manage.update();
+                    cloud.cloudMoving();
+                }
+
+                if(100 < gameScore && gameScore <= 150){
+                    dino.changePosition();
+                    ground.landMoving(12);
+                    manage.setChangeSpeed(12);
+                    manage.setIndex(50);
+                    manage.update();
+                    cloud.cloudMoving();
+                }
+
+                if(150 < gameScore && gameScore <= 200){
+                    dino.changePosition();
+                    ground.landMoving(16);
+                    manage.setChangeSpeed(16);
+                    manage.setIndex(150);
+                    manage.update();
+                    cloud.cloudMoving();
+                }
+
+                if(200 < gameScore && gameScore <= 250){
+                    dino.changePosition();
+                    ground.landMoving(18);
+                    manage.setChangeSpeed(18);
+                    manage.setIndex(200);
+                    manage.update();
+                    cloud.cloudMoving();
+                }
+
+                if(250 < gameScore && gameScore <= 300){
+                    dino.changePosition();
+                    ground.landMoving(20);
+                    manage.setChangeSpeed(20);
+                    manage.setIndex(250);
+                    manage.update();
+                    cloud.cloudMoving();
+                }
+
+                if(300 < gameScore && gameScore <= 400){
+                    dino.changePosition();
+                    ground.landMoving(24);
+                    manage.setChangeSpeed(24);
+                    manage.setIndex(350);
+                    manage.update();
+                    cloud.cloudMoving();
+                }
+
+                if(400 < gameScore){
+                    dino.changePosition();
+                    ground.landMoving(30);
+                    manage.setChangeSpeed(30);
+                    manage.setIndex(550);
+                    manage.update();
+                    cloud.cloudMoving();
+                }
+
                 if(!dino.survive()){
                     gameStatus = 2;
                 }
@@ -114,7 +173,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener, MouseLis
         dino.setX(50);
         dino.setY(60);
         manage.reset();
-        highestScore = gameScore;
+        if(gameScore > highestScore) {
+            highestScore = gameScore;
+        }
         clearGameScore();
     }
 
