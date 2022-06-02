@@ -9,17 +9,17 @@ import java.util.List;
 public class Animation { //switch image while dino is running
     private List<BufferedImage> frames;
     private int frameIndex = 0;
-    private int currentTime;
+    private int timeInterval;
     private long previousTime;
 
 
-    public Animation(int currentTime){
+    public Animation(int timeInterval){
         frames = new ArrayList<BufferedImage>();
-        this.currentTime = currentTime;
+        this.timeInterval = timeInterval;
     }
 
     public void update(){
-        if(System.currentTimeMillis() - previousTime > currentTime) {
+        if(System.currentTimeMillis() - previousTime > timeInterval) {
             frameIndex++;
             if (frameIndex >= frames.size()) {
                 frameIndex = 0;
